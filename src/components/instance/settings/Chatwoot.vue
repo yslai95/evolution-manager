@@ -47,18 +47,18 @@
         <div class="d-flex gap-4 flex-wrap">
           <div class="flex-grow-1">
             <v-text-field
-              v-model="chatwootData.account_id"
-              :label="$t('chatwoot.account_id')"
+              v-model="chatwootData.accountId"
+              :label="$t('chatwoot.accountId')"
               :disabled="loading"
               outlined
               dense
               hide-details="auto"
               class="mb-3"
               :rules="[
-                (account_id) => {
-                  if (!account_id)
+                (accountId) => {
+                  if (!accountId)
                     return this.$t('required', {
-                      field: this.$t('chatwoot.account_id'),
+                      field: this.$t('chatwoot.accountId'),
                     });
                   return true;
                 },
@@ -87,7 +87,7 @@
           </div>
           <div class="flex-grow-1">
             <v-text-field
-              v-model.number="chatwootData.days_limit_import_messages"
+              v-model.number="chatwootData.daysLimitImportMessages"
               :label="$t('chatwoot.dayslimitimportmessages')"
               :disabled="loading"
               outlined
@@ -100,7 +100,7 @@
         <div class="d-flex align-center gap-4 flex-wrap">
           <v-checkbox
             class="flex-grow-0 flex-shrink-0"
-            v-model="chatwootData.sign_msg"
+            v-model="chatwootData.signMsg"
             :disabled="loading"
             hide-details
             density="compact"
@@ -112,10 +112,10 @@
           </v-checkbox>
           <v-text-field
             class="flex-grow-1 flex-shrink-0"
-            v-model="chatwootData.sign_delimiter"
+            v-model="chatwootData.signDelimiter"
             :disabled="
               loading ||
-              !chatwootData.sign_msg ||
+              !chatwootData.signMsg ||
               !AppStore.versionSatisfies('>=1.6.1')
             "
             :label="$t('chatwoot.signDelimiter')"
@@ -134,7 +134,7 @@
         <div class="d-flex gap-x-4 flex-wrap">
           <div>
             <v-checkbox
-              v-model="chatwootData.reopen_conversation"
+              v-model="chatwootData.reopenConversation"
               :disabled="loading"
               hide-details
               class="mb-3"
@@ -151,7 +151,7 @@
 
           <div>
             <v-checkbox
-              v-model="chatwootData.conversation_pending"
+              v-model="chatwootData.conversationPending"
               :disabled="loading"
               hide-details
               class="mb-3"
@@ -167,7 +167,7 @@
           </div>
           <div>
             <v-checkbox
-              v-model="chatwootData.import_contacts"
+              v-model="chatwootData.importContacts"
               hide-details="auto"
               class="mb-3"
               density="compact"
@@ -190,7 +190,7 @@
 
           <div>
             <v-checkbox
-              v-model="chatwootData.import_messages"
+              v-model="chatwootData.importMessages"
               hide-details="auto"
               class="mb-3"
               density="compact"
@@ -270,16 +270,16 @@ import { useAppStore } from "@/store/app";
 const defaultObj = () => ({
   enabled: false,
   url: "",
-  account_id: "",
+  accountId: "",
   token: "",
-  sign_msg: true,
-  sign_delimiter: "\n",
-  reopen_conversation: true,
-  conversation_pending: false,
+  signMsg: true,
+  signDelimiter: "\n",
+  reopenConversation: true,
+  conversationPending: false,
   auto_create: undefined,
-  import_contacts: false,
-  import_messages: false,
-  days_limit_import_messages: 0,
+  importContacts: false,
+  importMessages: false,
+  daysLimitImportMessages: 0,
 });
 
 export default {
@@ -299,28 +299,28 @@ export default {
     chatwootData: {
       enabled: false,
       url: "",
-      account_id: "",
+      accountId: "",
       token: "",
-      sign_msg: true,
-      sign_delimiter: "\n",
-      reopen_conversation: true,
-      conversation_pending: false,
-      import_contacts: false,
-      import_messages: false,
-      days_limit_import_messages: 0,
+      signMsg: true,
+      signDelimiter: "\n",
+      reopenConversation: true,
+      conversationPending: false,
+      importContacts: false,
+      importMessages: false,
+      daysLimitImportMessages: 0,
     },
     defaultChatwootData: {
       enabled: false,
       url: "",
-      account_id: "",
+      accountId: "",
       token: "",
-      sign_msg: true,
-      sign_delimiter: "\n",
-      reopen_conversation: true,
-      conversation_pending: false,
-      import_contacts: false,
-      import_messages: false,
-      days_limit_import_messages: 0,
+      signMsg: true,
+      signDelimiter: "\n",
+      reopenConversation: true,
+      conversationPending: false,
+      importContacts: false,
+      importMessages: false,
+      days_limit_importMessages: 0,
     },
   }),
   methods: {
