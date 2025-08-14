@@ -74,7 +74,7 @@ export default {
     title: "Phone not connected",
     apiGenericError: "Could not load QR Code, if the error persists, restart the API and try again.",
     qr: "QR Code",
-    code: "Código",
+    code: "Cï¿½digo",
   },
   options: {
     title: "Behavior",
@@ -84,7 +84,7 @@ export default {
     alwaysOnline: "Always online",
     readMessages: "Mark messages as read",
     readStatus: "Mark status as seen",
-    syncfullhistory: "sync full history",
+    syncfullhistory: "Sync full history",
   },
   webhook: {
     byEvents: "Webhook by events",
@@ -211,5 +211,10 @@ export default {
       matchLastSeen: "Match Last Seen",
       none: "Nobody",
     }
+  },
+  shareConnection: {
+    title: "Share connection",
+    description: "Share your connection with other users. They will be able to connect to your instance and use the API.",
+    copy: "Copy",
   }
 }

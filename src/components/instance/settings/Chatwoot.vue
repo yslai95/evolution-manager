@@ -237,7 +237,7 @@
     <v-card-actions v-if="expanded" class="d-flex flex-wrap gap-x-1">
       <v-switch
         v-model="chatwootData.enabled"
-        label="Habilitado"
+        :label="$t('enabled')"
         color="primary"
         :disabled="loading"
         hide-details
@@ -256,7 +256,7 @@
         @click="saveChatwoot"
         variant="tonal"
       >
-        Salvar
+        {{ $t("save") }}
       </v-btn>
     </v-card-actions>
   </v-card>

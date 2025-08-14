@@ -3,10 +3,9 @@
     <v-card>
       <v-card-text>
         <div class="d-flex flex-column align-center">
-          <h4>Compartilhar conexão</h4>
+          <h4>{{ $t("shareConnection.title") }}</h4>
           <v-alert type="warning" class="mt-4">
-            Ao compartilhar sua conexão, você estará compartilhando todos os
-            dados da conexão, incluindo a URL e a chave de API global.
+            <h4>{{ $t("shareConnection.description") }}</h4>
           </v-alert>
           <!-- host and global key -->
           <v-card class="w-100 ma-2 pa-4" variant="outlined">
@@ -28,7 +27,7 @@
                 <v-icon start>
                   mdi-{{ copied ? "check" : "content-copy" }}
                 </v-icon>
-                Copiar link
+                {{ $t("shareConnection.copy") }}
               </v-btn>
             </div>
           </v-card>
@@ -36,7 +35,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="dialog = false" :disabled="loading"> Fechar </v-btn>
+        <v-btn text @click="dialog = false" :disabled="loading"> {{ $t("close") }} </v-btn>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>

@@ -211,5 +211,9 @@ export default {
       matchLastSeen: "Partido visto por última vez",
       none: "Nadie",
     }
+  }, shareConnection: {
+    title: "Compartir conexión",
+    description: "Comparte la conexión con otros usuarios para que puedan conectarse a tu instancia.",
+    copy: "Copiar enlace",
   }
 }

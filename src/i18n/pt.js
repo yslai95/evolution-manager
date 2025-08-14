@@ -224,4 +224,10 @@ export default {
       none: "Ninguém",
     },
   },
+  shareConnection: {
+    title: "Compartilhar conexão",
+    description:
+      "Compartilhe a conexão com outros usuários para que eles possam se conectar à sua instância.",
+    copy: "Copiar link",
+  }
 };
