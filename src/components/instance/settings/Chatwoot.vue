@@ -336,7 +336,7 @@ export default {
         this.loading = true;
         this.error = false;
         await instanceController.chatwoot.set(
-          this.instance.instance.instanceName,
+          this.instance.name,
           {
             ...this.chatwootData,
             url: this.chatwootData.url.trim().replace(/\/$/, ""),
@@ -354,7 +354,7 @@ export default {
         this.loading = true;
         this.error = false;
         const chatwootData = await instanceController.chatwoot.get(
-          this.instance.instance.instanceName
+          this.instance.name
         );
 
         const validData = chatwootData._doc || chatwootData;

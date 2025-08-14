@@ -29,9 +29,9 @@
       <div class="d-flex flex-wrap justify-center gap-x-4">
         <v-avatar size="150">
           <v-img
-            v-if="instance.instance.profilePictureUrl"
-            :src="instance.instance.profilePictureUrl"
-            :alt="instance.instance.profileName"
+            v-if="instance.profilePicUrl"
+            :src="instance.profilePicUrl"
+            :alt="instance.profileName"
           />
           <div v-else class="d-flex flex-column align-center">
             <v-icon size="70"> mdi-account-question </v-icon>
@@ -54,7 +54,7 @@
           {{ $t("profilePicture.upload") }}
         </v-card>
         <v-card
-          v-if="instance.instance.profilePictureUrl"
+          v-if="instance.profilePicUrl"
           variant="outlined"
           class="h-full d-flex flex-column justify-center align-center rounded-pill"
           width="150"
@@ -122,10 +122,10 @@ export default {
         if (!this.isOpen) return;
 
         await instanceController.profile.removePicture(
-          this.instance.instance.instanceName
+          this.instance.name
         );
 
-        this.AppStore.setPhoto(this.instance.instance.instanceName, null);
+        this.AppStore.setPhoto(this.instance.name, null);
       } catch (e) {
         this.error = e.message?.message || e.message || e;
       } finally {
@@ -143,10 +143,10 @@ export default {
         const base64 = await this.fileToBase64(file);
 
         await instanceController.profile.updatePicture(
-          this.instance.instance.instanceName,
+          this.instance.name,
           base64.split(",")[1]
         );
-        this.AppStore.setPhoto(this.instance.instance.instanceName, base64);
+        this.AppStore.setPhoto(this.instance.name, base64);
       } catch (e) {
         this.error = e.message?.message || e.message || e;
       } finally {
@@ -170,7 +170,7 @@ export default {
 
   computed: {
     isOpen() {
-      return this.instance.instance.status === "open";
+      return this.instance.connectionStatus === "open";
     },
   },
 };

@@ -7,7 +7,7 @@
       v-ripple
     >
       <v-icon start>mdi-message</v-icon>
-      {{ $t("chats.title")  }}
+      {{ $t("chats.title") }}
       <v-spacer></v-spacer>
       <v-btn
         size="small"
@@ -38,10 +38,11 @@
 
       <v-data-table
         :headers="[
+          { title: '', value: 'profilePic' },
           { title: 'Whatsapp', value: 'id' },
           {
             title: $t('chats.headers.lastMsgTimestamp'),
-            value: 'lastMsgTimestamp',
+            value: 'updatedAt',
             options: { format: 'DD/MM/YYYY HH:mm' },
           },
         ]"
@@ -53,7 +54,21 @@
         :items-per-page="5"
         class="elevation-0"
       >
-        <!-- eslint-disable-next-line vue/valid-v-slot -->
+        <template v-slot:item.profilePic="{ item }"> <div class="d-flex align-center py-2">
+            <v-avatar size="36">
+              <v-img
+                v-if="item.profilePicUrl"
+                :src="item.profilePicUrl"
+                alt="Profile Picture"
+                height="36"
+                width="36"
+              />
+              <v-icon v-else size="36">
+                mdi-account-circle </v-icon>
+            </v-avatar>
+          </div>
+        </template>
+
         <template v-slot:item.id="{ item }">
           <v-chip size="x-small" outlined color="primary" @click="copy(item)">
             {{ item.id }}
@@ -70,10 +85,8 @@
             </v-icon>
           </v-chip>
         </template>
-        <!-- eslint-disable-next-line vue/valid-v-slot -->
-        <template v-slot:item.lastMsgTimestamp="{ item }">
-          {{ item.lastMsgTimestamp }}
-          {{ formatTimestamp(item.lastMsgTimestamp * 1000) }}
+        <template v-slot:item.updatedAt="{ item }">
+          {{ formatTimestamp(item.updatedAt) }}
         </template>
       </v-data-table>
     </v-card-text>
@@ -95,7 +108,7 @@ export default {
     expanded: false,
     loading: false,
     error: false,
-    sortBy: [{ key: "lastMsgTimestamp", order: "desc" }],
+    sortBy: [{ key: "updatedAt", order: "desc" }],
     chats: [],
     copied: [],
     search: "",
@@ -125,7 +138,7 @@ export default {
         this.loading = true;
         this.error = false;
         const chats = await instanceController.chat.getAll(
-          this.instance.instance.instanceName
+          this.instance.name
         );
 
         this.chats = chats;

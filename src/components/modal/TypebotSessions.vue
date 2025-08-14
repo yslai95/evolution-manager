@@ -169,7 +169,7 @@ export default {
         this.loadingInner = data;
 
         await instanceController.typebot.changeStatus(
-          this.instance.instance.instanceName,
+          this.instance.name,
           data
         );
 

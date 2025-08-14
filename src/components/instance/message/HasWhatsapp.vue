@@ -100,7 +100,7 @@ export default {
         if (phone.length < 10) throw new Error(this.$t("phoneHasWhatsApp.invalid"));
 
         const response = await instanceController.chat.hasWhatsapp(
-          this.instance.instance.instanceName,
+          this.instance.name,
           [phone]
         );
 

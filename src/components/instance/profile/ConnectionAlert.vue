@@ -1,5 +1,5 @@
 <template>
-  <v-alert v-if="instance.instance.status != 'open'" type="error" class="mb-0">
+  <v-alert v-if="instance.connectionStatus != 'open'" type="error" class="mb-0">
     Não é possível alterar o perfil de uma instância desconectada.
   </v-alert>
 </template>

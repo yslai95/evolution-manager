@@ -3,7 +3,7 @@ import http from "../http-common";
 
 const getAll = async (instanceName) => {
   return await http
-    .get("/chat/findChats/:instance", {
+    .post("/chat/findChats/:instance", {}, {
       params: {
         instance: instanceName
       }

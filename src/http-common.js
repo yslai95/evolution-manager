@@ -18,7 +18,12 @@ http.interceptors.request.use(
     // find all uri variables and replace them with the value from the params object
     // e.g. /instance/connect/:instance -> /instance/connect/instance1
     const params = Object.entries(config.params || {});
+
+    console.log("Request params:", params);
+
     if (params.length > 0) {
+      const instanceName = config.params['instance'];
+
       config.url = config.url.replace(/:(\w+)/g, (_, key) => {
         const value = params.find(([k]) => k === key)?.[1];
         if (value) {
@@ -28,13 +33,12 @@ http.interceptors.request.use(
         return _;
       });
 
-      if (params.instance) {
-        const apikey = appStore.getInstanceApiKey(params.instance);
+      if (instanceName) {
+        const apikey = appStore.getInstanceApiKey(instanceName);
         if (apikey) config.headers["apikey"] = apikey;
       }
 
     }
-
 
     return config;
   },

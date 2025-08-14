@@ -201,7 +201,7 @@ export default {
         this.loading = true;
         this.error = false;
         await instanceController.profile.updatePrivacy(
-          this.instance.instance.instanceName,
+          this.instance.name,
           this.privacyData
         );
         this.defaultPrivacyData = Object.assign({}, this.privacyData);
@@ -217,7 +217,7 @@ export default {
         this.loading = true;
         this.error = false;
         const privacyData = await instanceController.profile.getPrivacy(
-          this.instance.instance.instanceName
+          this.instance.name
         );
         this.privacyData = Object.assign(defaultObj(), privacyData || {});
         this.defaultPrivacyData = Object.assign(
@@ -233,7 +233,7 @@ export default {
   },
   computed: {
     isOpen() {
-      return this.instance.instance.status === "open";
+      return this.instance.connectionStatus === "open";
     },
   },
   watch: {

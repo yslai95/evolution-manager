@@ -85,7 +85,7 @@ export default {
         });
 
         await instanceController.group.updateParticipant(
-          this.instance.instance.instanceName,
+          this.instance.name,
           this.group.id,
           "add",
           participants

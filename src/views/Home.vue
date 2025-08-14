@@ -77,8 +77,8 @@
           cols="12"
           sm="6"
           lg="4"
-          v-for="{ instance } in filteredInstances"
-          :key="instance.instanceName"
+          v-for="instance in filteredInstances"
+          :key="instance.name"
         >
           <v-card
             @click="goToInstance(instance)"
@@ -92,30 +92,30 @@
                   v-if="instance.profilePictureUrl"
                   :src="instance.profilePictureUrl"
                 />
-                <v-icon v-else>{{ statusMapper[instance.status].icon }}</v-icon>
+                <v-icon v-else>{{ statusMapper[instance.connectionStatus].icon }}</v-icon>
               </v-avatar>
               <div class="flex-shrink-1">
                 <v-chip
-                  :color="statusMapper[instance.status].color"
+                  :color="statusMapper[instance.connectionStatus].color"
                   size="x-small"
                   label
                 >
                   <v-icon
-                    v-if="statusMapper[instance.status].icon"
+                    v-if="statusMapper[instance.connectionStatus].icon"
                     start
                     size="x-small"
                   >
-                    {{ statusMapper[instance.status].icon }}
+                    {{ statusMapper[instance.connectionStatus].icon }}
                   </v-icon>
-                  {{ $t(`status.${instance.status}`) }}
+                  {{ $t(`status.${instance.connectionStatus}`) }}
                 </v-chip>
-                <h5>{{ instance.instanceName }}</h5>
+                <h5>{{ instance.name }}</h5>
               </div>
               <div class="ml-auto flex-shrink-0">
                 <v-btn
                   :disabled="loading || !!loadingDelete"
-                  :loading="loadingDelete === instance.instanceName"
-                  @click.stop="deleteInstance(instance.instanceName)"
+                  :loading="loadingDelete === instance.name"
+                  @click.stop="deleteInstance(instance.name)"
                   icon
                   variant="tonal"
                   color="error"
@@ -168,7 +168,7 @@ export default {
     goToInstance(instance) {
       this.$router.push({
         name: "instance",
-        params: { id: instance.instanceName },
+        params: { id: instance.name },
       });
     },
     async deleteInstance(instanceName) {
@@ -208,20 +208,35 @@ export default {
       return this.AppStore.instances;
     },
     filteredInstances() {
+      if (!Array.isArray(this.instances)) {
+        console.error("this.instances não é um array:", this.instances);
+        return []; // Retorna um array vazio para evitar erros
+      }
+
       const instances = this.instances.filter((instance) => {
-        if (!this.statusFilter) return true;
-        return instance.instance.status === this.statusFilter;
+        if (!instance || typeof instance !== 'object') {
+          console.warn("Instância inválida encontrada:", instance);
+          return false; // Ignora instâncias inválidas
+        }
+
+	if (!this.statusFilter) return true;
+        return instance.connectionStatus === this.statusFilter;
       });
 
       if (!this.search) return instances;
       return instances.filter((instance) => {
-        const search = this.search.trim().toLowerCase();
+        if (!instance || typeof instance !== 'object') {
+          console.warn("Instância inválida encontrada durante a busca:", instance);
+          return false;
+        }
+
+	const search = this.search.trim().toLowerCase();
 
         return (
-          (instance.instance.instanceName || "")
+          (instance.name || "")
             .toLowerCase()
             .includes(search) ||
-          (instance.instance.owner || "").toLowerCase().includes(search)
+          (instance.ownerJid || "").toLowerCase().includes(search)
         );
       });
     },

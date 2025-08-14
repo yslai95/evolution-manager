@@ -119,7 +119,7 @@ export default {
 
         this.$router.push({
           name: "instance",
-          params: { id: instance.instance.instanceName },
+          params: { id: instance.name },
         });
       } catch (e) {
         this.error = e.message?.message || e.message || e;

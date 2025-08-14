@@ -1,6 +1,6 @@
 <template>
   <v-card
-    v-if="instance.instance?.status != 'open'"
+    v-if="instance.connectionStatus != 'open'"
     @click="startConnect"
     elevation="0"
   >
@@ -135,7 +135,7 @@ export default {
         clearTimeout(this.timeout);
 
         const response = await instanceController.connect(
-          this.instance.instance.instanceName
+          this.instance.name
         );
 
         if (response.base64) this.qrCode = response.base64;
@@ -180,7 +180,7 @@ export default {
         this.loadQr();
       } else {
         instanceController
-          .logout(this.instance.instance.instanceName)
+          .logout(this.instance.name)
           .catch(() => {});
         this.qrCode = null;
         this.error = false;

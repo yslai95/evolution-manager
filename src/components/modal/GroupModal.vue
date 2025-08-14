@@ -104,7 +104,7 @@
             <template v-slot:item.id="{ item }">
               {{ item.id.split("@")[0] }}
               <v-chip
-                v-if="item.id === instance.instance.owner"
+                v-if="item.id === instance.ownerJid"
                 color="primary"
                 size="x-small"
                 label
@@ -172,7 +172,7 @@ export default {
         this.deletingInstance = true;
         this.error = false;
 
-        const isExit = this.selected.includes(this.instance.instance.owner);
+        const isExit = this.selected.includes(this.instance.ownerJid);
 
         if (isExit) {
           const confirm = await window.confirm(
@@ -182,7 +182,7 @@ export default {
         }
 
         await instanceController.group.updateParticipant(
-          this.instance.instance.instanceName,
+          this.instance.name,
           this.group.id,
           "remove",
           this.selected
@@ -203,7 +203,7 @@ export default {
         this.loading = true;
         this.error = false;
         const data = await instanceController.group.getById(
-          this.instance.instance.instanceName,
+          this.instance.name,
           groupId
         );
         console.log(data);
@@ -237,7 +237,7 @@ export default {
     isAdmin() {
       if (!this.group.participants) return false;
       return this.group.participants.find(
-        (p) => p.id === this.instance.instance.owner
+        (p) => p.id === this.instance.ownerJid
       )?.admin;
     },
   },

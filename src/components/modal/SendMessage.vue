@@ -67,7 +67,7 @@
           </v-autocomplete>
 
           <v-textarea
-            v-model="message.textMessage.text"
+            v-model="message.text"
             :label="$t('sendMessage.message')"
             outlined
             dense
@@ -84,7 +84,7 @@
           ></v-textarea>
 
           <div class="d-flex gap-2">
-            <v-select
+            <!-- <v-select
               v-model="message.options.presence"
               :items="[
                 'composing',
@@ -101,14 +101,14 @@
               ]"
               :disabled="loading"
               class="mb-3"
-            ></v-select>
+            ></v-select> -->
             <v-text-field
-              v-model="message.options.delay"
+              v-model="message.delay"
               type="number"
               :label="$t('sendMessage.delay')"
               density="compact"
               :hint="`${$t('sendMessage.delayHint')}
-            (${(message.options.delay / 1000).toFixed(1)} segundos)`"
+            (${(message.delay / 1000).toFixed(1)} segundos)`"
               :rules="[
                 (v) =>
                   !!v || $t('required', { field: $t('sendMessage.delay') }),
@@ -155,13 +155,8 @@ const defaultMessage = (obj = {}) =>
   mergeDeep(
     {
       number: null,
-      options: {
-        delay: 1200,
-        presence: "composing",
-      },
-      textMessage: {
-        text: "",
-      },
+      text: "",
+      delay: 1200
     },
     obj
   );
@@ -191,14 +186,15 @@ export default {
         var messagesId = [];
         const messageConfig = this.message;
 
-        messageConfig.options.delay = parseInt(messageConfig.options.delay);
+        messageConfig.delay = parseInt(messageConfig.delay);
 
         for (const number of this.numbers) {
           const r = await instanceController.chat.sendMessage(
-            this.instance.instance.instanceName,
+            this.instance.name,
             {
-              ...messageConfig,
               number,
+              text: messageConfig.text,
+              delay: messageConfig.delay,
             }
           );
 
@@ -243,10 +239,10 @@ export default {
         this.loadingContacts = true;
         this.error = false;
         const contacts = await instanceController.chat.getContacts(
-          this.instance.instance.instanceName
+          this.instance.name
         );
         const groups = await instanceController.group.getAll(
-          this.instance.instance.instanceName
+          this.instance.name
         );
 
         const groupsPhotos = {};
@@ -255,13 +251,13 @@ export default {
           ...contacts
             .filter((c) => {
               const isGroup = c.id.indexOf("g.us") !== -1;
-              if (isGroup) groupsPhotos[c.id] = c.profilePictureUrl;
+              if (isGroup) groupsPhotos[c.id] = c.profilePicUrl;
               return !isGroup;
             })
             .map((c) => ({
               title: c.pushName || c.id,
               value: c.id,
-              photo: c.profilePictureUrl,
+              photo: c.profilePicUrl,
               isGroup: false,
             })),
           ...groups.map((g) => ({

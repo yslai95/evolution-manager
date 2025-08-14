@@ -146,7 +146,7 @@ export default {
         this.loading = true;
         this.error = false;
         await instanceController.webhook.set(
-          this.instance.instance.instanceName,
+          this.instance.name,
           {
             ...this.webhookData,
             url: this.webhookData.url.trim().replace(/\/$/, ""),
@@ -165,7 +165,7 @@ export default {
         this.loading = true;
         this.error = false;
         const webhookData = await instanceController.webhook.get(
-          this.instance.instance.instanceName
+          this.instance.name
         );
 
         this.webhookData = Object.assign({}, webhookData);

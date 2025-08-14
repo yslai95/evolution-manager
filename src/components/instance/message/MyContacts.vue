@@ -57,14 +57,14 @@
           <div>
             <v-avatar size="40" class="mr-2">
               <v-img
-                v-if="item.profilePictureUrl"
-                :src="item.profilePictureUrl"
+                v-if="item.profilePicUrl"
+                :src="item.profilePicUrl"
               />
               <v-icon v-else size="40">mdi-account-circle</v-icon>
             </v-avatar>
             <b>{{ item.pushName }}</b>
             <v-chip
-              v-if="item.id === instance.instance.owner"
+              v-if="item.id === instance.ownerJid"
               size="x-small"
               label
               color="success"
@@ -141,7 +141,7 @@ export default {
         this.loading = true;
         this.error = false;
         const contacts = await instanceController.chat.getContacts(
-          this.instance.instance.instanceName
+          this.instance.name
         );
 
         this.contacts = contacts.filter((c) => !c.id.includes("@g.us"));

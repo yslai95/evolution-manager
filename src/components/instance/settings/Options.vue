@@ -174,7 +174,7 @@ export default {
         this.loading = true;
         this.error = false;
         await instanceController.options.set(
-          this.instance.instance.instanceName,
+          this.instance.name,
           this.optionsData
         );
         this.defaultOptionsData = Object.assign(
@@ -193,7 +193,7 @@ export default {
         this.loading = true;
         this.error = false;
         const optionsData = await instanceController.options.get(
-          this.instance.instance.instanceName
+          this.instance.name
         );
 
         this.optionsData = Object.assign(defaultOptions(), optionsData);

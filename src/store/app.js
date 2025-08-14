@@ -8,10 +8,10 @@ export const useAppStore = defineStore('app', {
     validConnection: (state) => state.connection.valid,
     instances: (state) => state.instancesList,
     getInstance: (state) => (instanceName) => state.instancesList.find(
-      (instance) => instance.instance.instanceName === instanceName
+      (instance) => instance.name === instanceName
     ),
     getInstanceApiKey: (state) => (instance) => {
-      return state.getInstance(instance).instance.apiKey ||
+      return state.getInstance(instance).token ||
         state.instancesKeys[instance]
     },
     version: (state) => state.connection.version,
@@ -62,6 +62,8 @@ export const useAppStore = defineStore('app', {
           },
           url: '/instance/fetchInstances'
         })
+	
+	console.log("Dados de fetchInstances:", response.data);
 
         this.saveConnection({ host, globalApiKey, version })
         this.instancesList = response.data
@@ -125,6 +127,8 @@ export const useAppStore = defineStore('app', {
           },
           url: '/instance/fetchInstances'
         })
+	
+	console.log("Dados de fetchInstances:", response.data);
 
         this.saveConnection({ host, globalApiKey, version })
 
@@ -139,16 +143,16 @@ export const useAppStore = defineStore('app', {
 
     setInstanceStatus(instance, status) {
       const index = this.instancesList.findIndex(
-        (instance) => instance.instance.instanceName === instance
+        (instance) => instance.name === instance
       )
-      this.instancesList[index].instance.status = status
+      this.instancesList[index].connectionStatus = status
     },
 
     setPhoto(instanceName, photo) {
       const index = this.instancesList.findIndex(
-        (instance) => instance.instance.instanceName === instanceName
+        (instance) => instance.name === instanceName
       )
-      if (index !== -1) this.instancesList[index].instance.profilePictureUrl = photo
+      if (index !== -1) this.instancesList[index].profilePicUrl = photo
     },
 
     addInstanceKey({ instance, key }) {
