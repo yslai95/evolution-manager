@@ -320,7 +320,7 @@ export default {
       conversationPending: false,
       importContacts: false,
       importMessages: false,
-      days_limit_importMessages: 0,
+      daysLimitImportMessages: 0,
     },
   }),
   methods: {
