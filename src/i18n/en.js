@@ -55,6 +55,9 @@ export default {
     integration: "Integration",
     number: "Telephone number identifier",
   },
+  deleteInstance: {
+    message: "Are you sure you want to delete the instance {instanceName}?",
+  },
   contribute: {
     title: "Contribute",
     via: "Contribute via",

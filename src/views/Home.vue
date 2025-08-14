@@ -175,11 +175,11 @@ export default {
       try {
         this.loadingDelete = instanceName;
         const confirm = window.confirm(
-          `Tem certeza que deseja excluir a instância ${instanceName}?`
+          this.$t("deleteInstance.message", { instanceName: instanceName })
         );
         if (!confirm) return;
 
-        await instanceController.logout(instanceName).catch(() => {});
+        await instanceController.logout(instanceName).catch(() => { });
         await instanceController.delete(instanceName);
         await this.AppStore.reconnect();
       } catch (e) {

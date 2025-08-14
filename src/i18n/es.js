@@ -55,6 +55,9 @@ export default {
     integration: "Integración",
     number: "Identificador de número de teléfono",
   },
+  deleteInstance: {
+    message: "Tem certeza que deseja excluir a instância {instanceName}?",
+  },
   contribute: {
     title: "Contribuir",
     via: "Contribuir a través de",
