@@ -12,4 +12,6 @@ RUN ln -s /usr/local/bin/node /usr/bin/node
 
 EXPOSE 9615
 
+USER non-root
+
 ENTRYPOINT ["bin/evolution-manager", "server", "start"]
